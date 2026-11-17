@@ -1,0 +1,11 @@
+node_modules
+.next
+pgdata
+.DS_Store
+__pycache__
+*.tsbuildinfo
+# secrets
+.env*
+!.env.local.example
+# rec files Colin uploads (kept local)
+uploads/

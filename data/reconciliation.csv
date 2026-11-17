@@ -1,0 +1,81 @@
+tracker_year,manager,lines,export_commission,tab_total_cell,difference,status,note
+2023,Aware,84,33934.04,36383.09,-2449.05,Check,Does not tie to the tab Total cell after refresh
+2023,Backforty Management,122,114813.71,114813.71,0.00,Ties,
+2023,EQT,18,31583.22,,,No Total cell,
+2023,Grey Slate,163,120122.52,120122.52,-0.00,Ties,
+2023,Hooligan Holdings,73,179061.86,179061.86,0.00,Ties,
+2023,Jelly Roll,15,1148.35,1177547.18,-1176398.82,Held,Sheet changed; not applied pending confirmation
+2023,Little Empire,233,84297.78,104979.95,-20682.17,Check,Does not tie to the tab Total cell after refresh
+2023,One Spark Entertainment,50,102376.87,110049.66,-7672.79,Check,Does not tie to the tab Total cell after refresh
+2023,Prodigy,76,46444.70,46444.70,0.00,Ties,
+2023,Punkdafunk,5,4367.94,4367.94,-0.01,Ties,
+2023,Rural Sultan,36,101369.97,110987.11,-9617.14,Check,Does not tie to the tab Total cell after refresh
+2023,Sarepta,209,399892.74,399892.74,-0.00,Ties,
+2023,Sound Capital,3,52391.04,,,No Total cell,
+2023,Stern,48,170303.16,180523.81,-10220.65,Check,Does not tie to the tab Total cell after refresh
+2023,Tiko,37,28096.79,30736.67,-2639.88,Check,Does not tie to the tab Total cell after refresh
+2023,Volara,5,8621.08,,,No Total cell,
+2023,WhizzBang,106,665744.97,702677.06,-36932.09,Check,Does not tie to the tab Total cell after refresh
+2023,Works,161,106482.93,132659.56,-26176.63,Check,Does not tie to the tab Total cell after refresh
+2023,Wynonna Judd,13,34355.67,34355.67,-0.00,Ties,
+2024,All Ships Rise,11,15310.89,15310.89,0.00,Ties,
+2024,Backforty Management,43,179461.28,179461.28,0.00,Ties,
+2024,Good Cop Bad Cop,17,9869.53,20000.00,-10130.47,Explained,Tab Total = Actual Commission on monthly Total rows (see manager_settlements.csv)
+2024,Grey Slate,183,136162.47,136162.47,-0.00,Ties,
+2024,Here There and Gone,77,85985.87,85985.87,-0.00,Ties,
+2024,Hooligan Holdings,58,42725.29,42725.29,-0.00,Ties,
+2024,Jelly Roll,37,826356.37,826356.37,0.00,Ties,
+2024,Little Empire,63,19303.06,19303.06,0.00,Ties,
+2024,Mickey Guyton,1,11250.00,11250.00,0.00,Ties,
+2024,One Spark Entertainment,68,163948.97,163948.96,0.01,Ties,
+2024,Prodigy,23,17745.07,17745.07,0.00,Ties,
+2024,Punkdafunk,0,0.00,0.00,0.00,Ties,
+2024,Rural Sultan,0,0.00,0.00,0.00,Ties,
+2024,Sarepta,201,363213.72,363213.72,-0.00,Ties,
+2024,Sound Capital,0,0.00,,,No Total cell,
+2024,Stern,36,207754.08,207754.08,0.00,Ties,
+2024,Supernormal,21,58204.95,,,No Total cell,
+2024,TOP Financials,77,549906.39,549906.39,-0.00,Ties,
+2024,Tiko,8,3689.00,3689.00,0.00,Ties,
+2024,WhizzBang,122,1527002.42,1527002.42,-0.00,Ties,
+2024,Works,161,107002.37,107002.37,-0.00,Ties,
+2024,Wynonna Judd,34,125886.90,125886.90,-0.00,Ties,
+2025,Alison Krauss,91,388118.52,388118.52,-0.00,Ties,
+2025,Backforty Management,46,197549.75,197549.75,0.00,Ties,
+2025,Biz Wash,21,39361.92,39361.92,-0.00,Ties,
+2025,Full Circle,78,27793.44,27793.44,-0.00,Ties,
+2025,Good Cop Bad Cop,45,40450.17,60000.00,-19549.83,Explained,Same as above
+2025,Grey Slate,208,147077.48,147077.48,0.00,Ties,
+2025,Here There and Gone,125,136737.58,136737.58,0.00,Ties,
+2025,Hooligan Holdings,11,11327.35,11327.35,0.00,Ties,
+2025,Jelly Roll,27,1460006.39,1460006.39,0.00,Ties,
+2025,Mickey Guyton,57,184497.29,184497.29,0.01,Ties,
+2025,One Spark Entertainment,37,88003.00,88003.00,0.00,Ties,
+2025,Sarepta,219,463811.76,463811.76,-0.00,Ties,
+2025,Sound Capital,0,0.00,,,No Total cell,
+2025,Stern,55,299408.82,288787.17,10621.65,Explained,Tab Total formula is =SUM(K2:K54) and misses rows 55-57
+2025,Supernormal,7,31820.13,19893.40,11926.73,Explained,Tab Total sums Commission USD; ties to commission_usd
+2025,TOP Financials,113,870008.14,870008.14,-0.00,Ties,
+2025,WhizzBang,103,1281955.83,1281955.83,-0.00,Ties,
+2025,Works,147,62357.44,62357.44,0.00,Ties,
+2026,Alison Krauss,5,21862.13,19933.94,1928.19,Check,Does not tie to the tab Total cell after refresh
+2026,Backforty Management,42,97223.93,97223.93,0.00,Ties,
+2026,Biz Wash,31,90436.71,90436.71,0.00,Ties,
+2026,Corey Smith,17,15754.67,15754.67,-0.00,Ties,
+2026,Florence + The Machine,4,82000.00,,,No Total cell,
+2026,Full Circle,114,46923.99,46923.99,-0.00,Ties,
+2026,Good Cop Bad Cop,8,9264.68,20000.00,-10735.32,Explained,Same as above
+2026,Grey Slate,103,96091.93,70724.06,25367.87,Check,Does not tie to the tab Total cell after refresh
+2026,Here There and Gone,37,54393.84,46887.43,7506.41,Held,Sheet changed; not applied pending confirmation
+2026,Jelly Roll,17,1295994.38,295994.38,1000000.00,Check,Does not tie to the tab Total cell after refresh
+2026,Jo Dee Messina,44,106949.00,106949.00,-0.00,Ties,
+2026,Mickey Guyton,31,55080.03,33603.59,21476.44,Check,Does not tie to the tab Total cell after refresh
+2026,One Spark Entertainment,44,94793.75,89793.75,5000.00,Check,Does not tie to the tab Total cell after refresh
+2026,Retainers,82,660828.00,,,No Total cell,
+2026,Sarepta,139,426475.77,266677.49,159798.28,Check,Does not tie to the tab Total cell after refresh
+2026,Stern,1,41655.49,0.00,41655.49,Check,Does not tie to the tab Total cell after refresh
+2026,TOP Financials,76,429464.71,428736.91,727.80,Check,Does not tie to the tab Total cell after refresh
+2026,Truth,2,15000.00,,,No Total cell,
+2026,Underoath,187,36580.29,36580.29,0.00,Ties,
+2026,WhizzBang,34,207047.74,141288.32,65759.42,Check,Does not tie to the tab Total cell after refresh
+2026,Works,70,18419.08,18419.08,0.00,Ties,

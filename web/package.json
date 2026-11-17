@@ -1,0 +1,30 @@
+{
+  "name": "mtheory-revenue-web",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.1.0",
+    "@electric-sql/pglite": "^0.5.10",
+    "@types/node": "^26.6.5",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.3.0",
+    "csv-parse": "^7.0.3",
+    "exceljs": "^4.4.0",
+    "next": "^16.4.2",
+    "next-auth": "^5.0.0-beta.32",
+    "pg": "^8.23.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "typescript": "^7.0.2",
+    "zod": "^4.6.7"
+  },
+  "private": true
+}

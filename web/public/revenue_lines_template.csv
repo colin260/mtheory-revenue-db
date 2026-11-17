@@ -1,0 +1,2 @@
+tracker_year,manager,current_manager,source_row,client_name,artist,commission_type,source,statement_year,statement_month,statement_month_num,deposit_date,memo,amount,rate,commission,actual_commission,fx_rate,commission_usd,support_file,show_date,sheet_url
+2026,Example Manager,True,2,Example Client LLC,Example Artist,Royalties,ORCHARD,2026,September,9,2026-10-15,September 2026 Royalties,1000.00,0.2,200.00,,,,https://drive.google.com/file/d/EXAMPLE/view,,
