@@ -1,6 +1,7 @@
 import './globals.css';
 import Link from 'next/link';
 import Script from 'next/script';
+import { Suspense } from 'react';
 import { signOut } from '@/auth';
 import { ThemeToggle } from '@/lib/ThemeToggle';
 import { Tabs } from '@/lib/Tabs';
@@ -21,7 +22,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
         <Script id="theme-init" strategy="beforeInteractive">{THEME_INIT}</Script>
         <header className="top">
           <Link href="/" className="brand"><h1>Mtheory Revenue</h1></Link>
-          {viewer && <Tabs />}
+          {viewer && <Suspense><Tabs /></Suspense>}
           <span className="spacer" />
           {viewer?.role === 'finance' && <><Link href="/upload">Add data</Link><Link href="/admin/users">Users</Link></>}
           <ThemeToggle />
