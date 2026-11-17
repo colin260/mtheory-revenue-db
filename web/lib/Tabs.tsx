@@ -5,6 +5,16 @@ import { useEffect, useState } from 'react';
 
 const TABS = [{ href: '/', label: 'Artist dashboard' }, { href: '/touring', label: 'Touring' }, { href: '/royalties', label: 'Royalties' }, { href: '/database', label: 'Database' }];
 const KEY = 'lastArtist';
+const EVENT = 'lastartist';
+
+// Pages call this to remember an artist the viewer landed on another way (e.g. the dashboard search).
+export function RememberArtist({ name }: { name: string }) {
+  useEffect(() => {
+    try { localStorage.setItem(KEY, name); } catch {}
+    window.dispatchEvent(new CustomEvent(EVENT, { detail: name }));
+  }, [name]);
+  return null;
+}
 
 // The last artist picked (artist page, Touring or Royalties) is remembered in this browser, so the
 // Artist dashboard, Touring and Royalties tabs open on that same artist.
@@ -22,6 +32,11 @@ export function Tabs() {
       setLast(localStorage.getItem(KEY) ?? '');
     } catch { setLast(a ?? ''); }
   }, [path, sp]);
+  useEffect(() => {
+    const on = (e: Event) => setLast((e as CustomEvent<string>).detail);
+    window.addEventListener(EVENT, on);
+    return () => window.removeEventListener(EVENT, on);
+  }, []);
   const href = (h: string) => {
     if (!last) return h;
     if (h === '/') return `/artists/${encodeURIComponent(last)}`;

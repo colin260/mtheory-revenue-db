@@ -1,3 +1,4 @@
+import { RememberArtist } from '@/lib/Tabs';
 import Link from 'next/link';
 import { query } from '@/lib/db';
 import { FILTER_KEYS, TYPE_GROUP, basisLabel, filtersFrom, groupType, managerNames, onlyCurrent, where, yearExpr, yearOptions, type SP } from '@/lib/filters';
@@ -61,8 +62,12 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
     <label>{label}<select name={name} defaultValue={f[name]}><option value="">All</option>{opts.map(o => <option key={o} value={o}>{o}</option>)}</select></label>
   );
 
+  // A search that lands on one artist (exact name, or the only match) becomes the remembered artist for the tabs.
+  const picked = f.q ? (names.find(n => n.toLowerCase() === f.q.trim().toLowerCase()) ?? (artists.length === 1 ? artists[0].artist : '')) : '';
+
   return (
     <>
+      {picked && <RememberArtist name={picked} />}
       <form className="filters" method="get">
         <label className="q">Find an artist<input name="q" defaultValue={f.q} placeholder="Start typing an artist name…" list="artist-names" autoComplete="off" /><datalist id="artist-names">{names.map(n => <option key={n} value={n} />)}</datalist></label>
         {f.co && <Select name="manager" label="Company" opts={managers} />}

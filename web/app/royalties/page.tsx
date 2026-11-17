@@ -88,11 +88,11 @@ export default async function Royalties({ searchParams }: { searchParams: Promis
   return (
     <>
       <form className="filters" method="get" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))' }}>
-        <label>Search sources
-          <input type="search" name="sq" defaultValue={sq} placeholder="Source name…" />
-        </label>
         <label>Artist
           <select name="artist" defaultValue={artist}><option value="">All artists</option>{artists.map(a => <option key={a}>{a}</option>)}</select>
+        </label>
+        <label>Search sources
+          <input type="search" name="sq" defaultValue={sq} placeholder="Source name…" />
         </label>
         <label>Year basis
           <select name="basis" defaultValue={basis}><option value="">Cash year (tracker sheet)</option><option value="statement">Statement year (as reported)</option></select>
