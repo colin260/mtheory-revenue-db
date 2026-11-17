@@ -130,6 +130,9 @@ async function ensureManagers(db: Db) {
       await db.run(`insert into artists(name) values ('Logan Crosby') on conflict do nothing`);
       for (const s of seedLogan) await db.run('insert into projected_shows values ($1,$2,$3,$4,$5,$6,$7,$8,$9) on conflict do nothing', [s.artist, s.show_date, s.venue, s.city, s.state, s.contact, s.fee, s.status, s.source]);
     }
+    // 17 Nov 2026: Logan Crosby's itinerary dates had also landed under Corey Smith (the export has no artist column). Remove exactly those date+venue rows from Corey Smith; his own shows are untouched.
+    if ((await db.run(`insert into seed_flags values ('logan_not_corey_2026_11_17') on conflict do nothing returning name`)).rows.length)
+      for (const s of seedLogan) await db.run(`delete from projected_shows where artist = 'Corey Smith' and show_date = $1 and left(lower(venue), length($2)) = lower($2)`, [s.show_date, s.venue]);
   } catch (e) { console.error('projected_shows setup failed', e); }
 }
 // Inserts lines from a CSV in the data/revenue_lines.csv layout (overwrites an existing tracker row only when update is true), creating the company, artist and client if needed.
