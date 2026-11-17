@@ -55,8 +55,12 @@ def main():
     for year, tab, ns, nd, a, rm, c in sorted(report):
         if a or rm or c: print(f'{year:4} {tab[:28]:28} {ns:5d} {nd:5d} {len(a):6d} {len(rm):7d} {len(c):7d}')
     tabs_in_data = {(r[I['tracker_year']], r[I['manager']]) for r in body}
-    missing = sorted(tabs_in_data - set(sheetfound)); new = sorted(set(sheetfound) - tabs_in_data)
+    # Retainers and Unsupported payments come from the "MT MS <year> Income tracking" workbook, not the revenue trackers,
+    # so a company whose lines are all of those types is expected to have no tracker tab.
+    income_only = {k for k in tabs_in_data if all(r[I['commission_type']] in ('Retainer', 'Unsupported') for r in body if (r[I['tracker_year']], r[I['manager']]) == k)}
+    missing = sorted(tabs_in_data - set(sheetfound) - income_only); new = sorted(set(sheetfound) - tabs_in_data)
     print(f'\nTOTAL: added {len(add_rows)} | removed {len(gone)} | changed {len(upd)} | tabs in data not found in sheets: {missing} | new tabs: {new}')
+    print(f'income-tracking only (retainers/unsupported, expected, kept): {sorted(income_only - set(sheetfound))}')
     fields = collections.Counter(f for (_, _, _), s in upd.items() for f in [None])
     cf = collections.Counter(); ex = {}
     for year, tab, ns, nd, a, rm, c in report:
