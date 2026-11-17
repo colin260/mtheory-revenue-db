@@ -8,6 +8,7 @@ import seedRefresh from './seed/sheet_refresh_2026_11.json';
 import seedRefreshB from './seed/sheet_refresh_2026_11b.json';
 import seedRefreshC from './seed/sheet_refresh_2026_11c.json';
 import seedRefreshD from './seed/sheet_refresh_2026_11d.json';
+import seedRefresh1117 from './seed/sheet_refresh_2026_11_17.json';
 import seedUnsupported from './seed/unsupported_2026.json';
 import seedJoDeeAdj from './seed/jodee_adjustment.json';
 import seedGreySlateFix from './seed/greyslate_fix.json';
@@ -78,6 +79,7 @@ async function ensureManagers(db: Db) {
     await seedLines(db, 'sheet_refresh_2026_11_04b', seedRefreshB.csv, true);
     await seedLines(db, 'sheet_refresh_2026_11_04c', seedRefreshC.csv, true);   // third refresh: source names on Backforty 2023 and Here There and Gone 2024/2025   // second refresh the same day: source names on Sarepta, TOP Financials, Here There and Gone 2025, One Spark, Mickey Guyton
     await seedLines(db, 'sheet_refresh_2026_11_05', seedRefreshD.csv, true);   // 5 Nov refresh: 21 Pilots source, Stern artists, WhizzBang/Biz Wash/Here There and Gone 2025 fixes
+    await seedLines(db, 'sheet_refresh_2026_11_17', seedRefresh1117.csv, true);   // 17 Nov refresh: new Grey Slate 2026 rows 103-134 (32) and Sarepta 2026 rows 136-196 (61)
     // 4 Nov 2026: 2026 deposits (MT MS 2026 Income tracking) with no line in the trackers: commission type/source 'Unsupported', dated by the payment. Rows 9001+ so they never collide with sheet rows.
     await seedLines(db, 'unsupported_2026_11_04', seedUnsupported.csv);
     // 4 Nov 2026: $30K of Jo Dee retainers were netted against the 9/22 commission payment, so her September total is lowered by 30K.
