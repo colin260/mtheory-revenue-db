@@ -8,7 +8,7 @@ const from = (src: string | null) => !src ? 'an upload' : /^gigwell$/i.test(src)
 const list = (a: string[]) => a.length < 2 ? a.join('') : `${a.slice(0, -1).join(', ')} and ${a[a.length - 1]}`;
 
 // Future shows for one artist (projected_shows): month by month with subtotals. Commission is finance-only.
-export function ProjectedShows({ proj, money, artist }: { proj: { rate: number | null; shows: Projected[] }; money: boolean; artist: string }) {
+export function ProjectedShows({ proj, money, artist }: { proj: { rate: number | null; setRate?: boolean; shows: Projected[] }; money: boolean; artist: string }) {
   if (!proj.shows.length) return null;
   const today = new Date().toISOString().slice(0, 10);
   const live = proj.shows.filter(s => s.status !== 'Expired'), expired = proj.shows.filter(s => s.status === 'Expired');
@@ -17,7 +17,7 @@ export function ProjectedShows({ proj, money, artist }: { proj: { rate: number |
         <>
           <h2 style={{ marginTop: 28 }}>Projected shows (not yet paid)</h2>
           <p className="note">
-            From {list([...new Set(proj.shows.map(s => from(s.source)))])}, not yet deposited{money && proj.rate != null ? <> · commission at {pct(proj.rate)}, the same rate as {artist}’s touring lines</> : null}.
+            From {list([...new Set(proj.shows.map(s => from(s.source)))])}, not yet deposited{money && proj.rate != null ? <> · commission at {pct(proj.rate)}, {proj.setRate ? <>the rate set for {artist} (no touring lines yet)</> : <>the same rate as {artist}’s touring lines</>}</> : null}.
             {' '}Shows with no fee yet and expired holds are listed but not counted.
           </p>
           <div className="stats">

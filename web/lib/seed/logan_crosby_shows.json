@@ -1,0 +1,101 @@
+[
+ {
+  "artist": "Logan Crosby",
+  "show_date": "2026-09-17",
+  "venue": "The Armadillo Palace",
+  "city": "Houston",
+  "state": "TX",
+  "contact": "Ashlie Morales",
+  "fee": 1000.0,
+  "status": "Confirmed",
+  "source": "Itinerary export"
+ },
+ {
+  "artist": "Logan Crosby",
+  "show_date": "2026-09-18",
+  "venue": "RADIO/EAST",
+  "city": "Austin",
+  "state": "TX",
+  "contact": "Andrew Hall",
+  "fee": 1000.0,
+  "status": "Confirmed",
+  "source": "Itinerary export"
+ },
+ {
+  "artist": "Logan Crosby",
+  "show_date": "2026-09-19",
+  "venue": "Granada Theater",
+  "city": "Dallas",
+  "state": "TX",
+  "contact": "Mike Schoder",
+  "fee": 1000.0,
+  "status": "Confirmed",
+  "source": "Itinerary export"
+ },
+ {
+  "artist": "Logan Crosby",
+  "show_date": "2026-09-24",
+  "venue": "Georgia Theatre",
+  "city": "Athens",
+  "state": "GA",
+  "contact": "Chris McLane",
+  "fee": 1000.0,
+  "status": "Confirmed",
+  "source": "Itinerary export"
+ },
+ {
+  "artist": "Logan Crosby",
+  "show_date": "2026-09-25",
+  "venue": "The Orange Peel",
+  "city": "Asheville",
+  "state": "NC",
+  "contact": "Lauren Davis",
+  "fee": 500.0,
+  "status": "Confirmed",
+  "source": "Itinerary export"
+ },
+ {
+  "artist": "Logan Crosby",
+  "show_date": "2026-09-26",
+  "venue": "Wendells Dippin Branch",
+  "city": "Anderson",
+  "state": "SC",
+  "contact": "Layne Flournoy",
+  "fee": 500.0,
+  "status": "Confirmed",
+  "source": "Itinerary export"
+ },
+ {
+  "artist": "Logan Crosby",
+  "show_date": "2026-10-01",
+  "venue": "The Wind Jammer",
+  "city": "Isle of Palms",
+  "state": "SC",
+  "contact": "Bobby Ross",
+  "fee": 1000.0,
+  "status": "Confirmed",
+  "source": "Itinerary export"
+ },
+ {
+  "artist": "Logan Crosby",
+  "show_date": "2026-10-02",
+  "venue": "The Signal",
+  "city": "Chattanooga",
+  "state": "TN",
+  "contact": "Matt Phillips",
+  "fee": 1000.0,
+  "status": "Confirmed",
+  "source": "Itinerary export"
+ },
+ {
+  "artist": "Logan Crosby",
+  "show_date": "2026-10-03",
+  "venue": "The Underground - Charlotte",
+  "city": "Charlotte",
+  "state": "NC",
+  "contact": "Vincent Almeraris",
+  "fee": 1000.0,
+  "status": "Confirmed",
+  "source": "Itinerary export"
+ }
+]

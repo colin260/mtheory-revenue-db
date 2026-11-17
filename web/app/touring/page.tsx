@@ -8,7 +8,7 @@ import { usd, day } from '@/lib/format';
 import { Bars } from '@/lib/Bars';
 import { Drill, dbHref } from '@/lib/Drill';
 import { avg } from '@/lib/stats';
-import { projectedFor } from '@/lib/projections';
+import { projectedArtists, projectedFor } from '@/lib/projections';
 import { ProjectedShows } from '@/lib/ProjectedShows';
 
 export const dynamic = 'force-dynamic';
@@ -28,6 +28,7 @@ export default async function Touring({ searchParams }: { searchParams: Promise<
 
   const artists = (await query<{ artist: string; n: number }>(
     `select artist, count(*)::int n from ${scoped(viewer)} where commission_type like 'Touring%' and artist is not null${onlyCurrent(legacy)} group by 1 order by 2 desc, 1`)).map(r => r.artist);
+  for (const a of await projectedArtists(viewer)) if (!artists.includes(a)) artists.push(a);   // projected shows only, no tracker lines yet
   const artist = artists.includes(one(sp.artist)) ? one(sp.artist) : artists.includes('Underoath') ? 'Underoath' : artists[0];
   if (!artist) return <p className="muted">No touring lines available.</p>;
   const sort = ORDER[one(sp.sort)] ? one(sp.sort) : 'date';
@@ -103,8 +104,8 @@ export default async function Touring({ searchParams }: { searchParams: Promise<
 
       <ProjectedShows proj={proj} money={money} artist={artist} />
 
-      {proj.shows.length > 0 && <h2 style={{ marginTop: 28 }}>Past shows</h2>}
-      <div className="tablewrap">
+      {proj.shows.length > 0 && shows.length > 0 && <h2 style={{ marginTop: 28 }}>Past shows</h2>}
+      {shows.length > 0 && <div className="tablewrap">
         <table>
           <thead>
             <tr>
@@ -149,7 +150,7 @@ export default async function Touring({ searchParams }: { searchParams: Promise<
             </tr>
           </tbody>
         </table>
-      </div>
+      </div>}
 
       {chosen && (
         <>

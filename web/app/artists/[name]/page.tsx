@@ -41,6 +41,14 @@ export default async function Artist({ params, searchParams }: { params: Promise
     query(`select count(*)::int n, count(distinct ${PERIOD})::int months, sum(amount)::float8 rev, sum(commission)::float8 comm, count(amount)::int n_amt, count(commission)::int n_comm
            from ${rel} where artist=$1 and commission_type in ('Royalties', 'Residuals')${cur}`, [name]),
   ]);
+  if (!tot[0].n && proj.shows.length) return (   // no tracker lines yet, only projected shows
+    <>
+      <p><Link href="/">← Artist dashboard</Link></p>
+      <h1 style={{ margin: '4px 0 14px' }}>{name}</h1>
+      <p className="note">No revenue lines yet. Projected shows only.</p>
+      <ProjectedShows proj={proj} money={m} artist={name} />
+    </>
+  );
   if (!tot[0].n) return <p>No lines for “{name}”. <Link href="/">Back</Link></p>;
   const q = new URLSearchParams({ artist: name, ...(legacy ? { legacy } : {}) });
   return (

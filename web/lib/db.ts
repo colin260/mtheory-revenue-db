@@ -2,6 +2,7 @@
 // created by `node load.mjs` in the parent folder.
 import path from 'node:path';
 import seedShows from './seed/projected_shows.json';
+import seedLogan from './seed/logan_crosby_shows.json';
 import seedUnderoath from './seed/underoath_merch.json';
 import seedRetainers from './seed/retainers_2026.json';
 import seedRefresh from './seed/sheet_refresh_2026_11.json';
@@ -124,6 +125,11 @@ async function ensureManagers(db: Db) {
     await db.run('alter table projected_shows add column if not exists commission_override numeric');
     if (!(await db.run('select 1 from projected_shows limit 1')).rows.length)
       for (const s of seedShows) await db.run('insert into projected_shows values ($1,$2,$3,$4,$5,$6,$7,$8,$9) on conflict do nothing', [s.artist, s.show_date, s.venue, s.city, s.state, s.contact, s.fee, s.status, s.source]);
+    // 17 Nov 2026: Logan Crosby added as an artist (no tracker lines yet) with his Sep-Oct 2026 support dates on the Lily Rose tour, from an itinerary export.
+    if ((await db.run(`insert into seed_flags values ('logan_crosby_2026_11_17') on conflict do nothing returning name`)).rows.length) {
+      await db.run(`insert into artists(name) values ('Logan Crosby') on conflict do nothing`);
+      for (const s of seedLogan) await db.run('insert into projected_shows values ($1,$2,$3,$4,$5,$6,$7,$8,$9) on conflict do nothing', [s.artist, s.show_date, s.venue, s.city, s.state, s.contact, s.fee, s.status, s.source]);
+    }
   } catch (e) { console.error('projected_shows setup failed', e); }
 }
 // Inserts lines from a CSV in the data/revenue_lines.csv layout (overwrites an existing tracker row only when update is true), creating the company, artist and client if needed.
