@@ -41,7 +41,7 @@ export default async function Touring({ searchParams }: { searchParams: Promise<
   const shows = await query(`${showsSql(viewer, yc)} order by ${ORDER[sort]}`, [artist]);
   const tot = shows.reduce((a, s) => ({ gross: a.gross + s.gross, expenses: a.expenses + s.expenses, net: a.net + s.net, commission: a.commission + (s.commission ?? 0), n: a.n + s.n }),
     { gross: 0, expenses: 0, net: 0, commission: 0, n: 0 });
-  const proj = await projectedFor(viewer, artist);
+  const proj = await projectedFor(viewer, artist, one(sp.pyear));
   const maxNet = Math.max(1, ...shows.map(s => Math.abs(s.net)));
   const hasExpenses = tot.expenses > 0;
   const showLines = shows.some((s: any) => s.n > 1);       // the Lines column only matters when a show has several lines (guarantee + expenses)
@@ -102,7 +102,7 @@ export default async function Touring({ searchParams }: { searchParams: Promise<
         </>}
       </div>
 
-      <ProjectedShows proj={proj} money={money} artist={artist} />
+      <ProjectedShows proj={proj} money={money} artist={artist} yearHref={y => link({ pyear: String(y) })} />
 
       {proj.shows.length > 0 && shows.length > 0 && <h2 style={{ marginTop: 28 }}>Past shows</h2>}
       {shows.length > 0 && <div className="tablewrap">

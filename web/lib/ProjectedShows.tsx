@@ -1,5 +1,6 @@
 import { usd, day } from './format';
-import type { Projected } from './projections';
+import Link from 'next/link';
+import type { ProjectedSet } from './projections';
 import { CommissionEdit } from './CommissionEdit';
 
 const pct = (n: number) => `${(n * 100).toFixed(1)}%`;
@@ -8,14 +9,16 @@ const from = (src: string | null) => !src ? 'an upload' : /^gigwell$/i.test(src)
 const list = (a: string[]) => a.length < 2 ? a.join('') : `${a.slice(0, -1).join(', ')} and ${a[a.length - 1]}`;
 
 // Future shows for one artist (projected_shows): month by month with subtotals. Commission is finance-only.
-export function ProjectedShows({ proj, money, artist }: { proj: { rate: number | null; setRate?: boolean; shows: Projected[] }; money: boolean; artist: string }) {
+// yearHref builds the link for another projection year; years with shows are offered when there is more than one.
+export function ProjectedShows({ proj, money, artist, yearHref }: { proj: ProjectedSet; money: boolean; artist: string; yearHref?: (y: number) => string }) {
   if (!proj.shows.length) return null;
   const today = new Date().toISOString().slice(0, 10);
   const live = proj.shows.filter(s => s.status !== 'Expired'), expired = proj.shows.filter(s => s.status === 'Expired');
   const pTot = live.reduce((a, s) => ({ fee: a.fee + (s.fee ?? 0), comm: a.comm + (s.commission ?? 0) }), { fee: 0, comm: 0 });
   return (
         <>
-          <h2 style={{ marginTop: 28 }}>Projected shows (not yet paid)</h2>
+          <h2 style={{ marginTop: 28 }}>Projected shows (not yet paid){proj.year ? <> · {proj.year}</> : null}</h2>
+          {yearHref && (proj.years?.length ?? 0) > 1 && <p className="note">Year: {proj.years!.map((y, i) => <span key={y}>{i ? ' · ' : ''}{y === proj.year ? <b>{y}</b> : <Link href={yearHref(y)}>{y}</Link>}</span>)}</p>}
           <p className="note">
             From {list([...new Set(proj.shows.map(s => from(s.source)))])}, not yet deposited{money && proj.rate != null ? <> · commission at {pct(proj.rate)}, {proj.setRate ? <>the rate set for {artist} (no touring lines yet)</> : <>the same rate as {artist}’s touring lines</>}</> : null}.
             {' '}Shows with no fee yet and expired holds are listed but not counted.

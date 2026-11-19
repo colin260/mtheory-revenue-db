@@ -14,7 +14,7 @@ import { ProjectedShows } from '@/lib/ProjectedShows';
 
 export const dynamic = 'force-dynamic';
 
-export default async function Artist({ params, searchParams }: { params: Promise<{ name: string }>; searchParams: Promise<{ basis?: string; measure?: string; legacy?: string }> }) {
+export default async function Artist({ params, searchParams }: { params: Promise<{ name: string }>; searchParams: Promise<{ basis?: string; measure?: string; legacy?: string; pyear?: string }> }) {
   const viewer = await requireViewer();
   const rel = scoped(viewer);
   const name = decodeURIComponent((await params).name);
@@ -24,7 +24,7 @@ export default async function Artist({ params, searchParams }: { params: Promise
   const legacy = sp.legacy || !hasCurrent ? '1' : '';
   const cur = onlyCurrent(legacy);
   const m = viewer.sees.money, measure = measureFrom(sp.measure, m);
-  const proj = await projectedFor(viewer, name);
+  const proj = await projectedFor(viewer, name, sp.pyear);
   const short = measure === 'commission' ? 'Commission' : 'Revenue';
   const yr = yearExpr(statement ? 'statement' : '');
   const drill = (extra: Record<string, string> = {}) => dbHref({ artist: name, basis: statement ? 'statement' : '', legacy, ...extra });
@@ -46,7 +46,7 @@ export default async function Artist({ params, searchParams }: { params: Promise
       <p><Link href="/">← Artist dashboard</Link></p>
       <h1 style={{ margin: '4px 0 14px' }}>{name}</h1>
       <p className="note">No revenue lines yet. Projected shows only.</p>
-      <ProjectedShows proj={proj} money={m} artist={name} />
+      <ProjectedShows proj={proj} money={m} artist={name} yearHref={y => `/artists/${encodeURIComponent(name)}?${new URLSearchParams({ ...(sp.legacy ? { legacy: '1' } : {}), ...(statement ? { basis: 'statement' } : {}), pyear: String(y) })}`} />
     </>
   );
   if (!tot[0].n) return <p>No lines for “{name}”. <Link href="/">Back</Link></p>;
@@ -78,7 +78,7 @@ export default async function Artist({ params, searchParams }: { params: Promise
           </>}
         </div>
       )}
-      <ProjectedShows proj={proj} money={m} artist={name} />
+      <ProjectedShows proj={proj} money={m} artist={name} yearHref={y => `/artists/${encodeURIComponent(name)}?${new URLSearchParams({ ...(sp.legacy ? { legacy: '1' } : {}), ...(statement ? { basis: 'statement' } : {}), pyear: String(y) })}`} />
       {m && <MeasureToggle current={measure} href={x => `?${new URLSearchParams({ ...(statement ? { basis: 'statement' } : {}), ...(sp.legacy ? { legacy: '1' } : {}), measure: x })}`} />}
       <div className="grid2">
         <div className="card"><h2 style={{ marginTop: 0 }}>{short} by year{' '}

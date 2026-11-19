@@ -3,6 +3,7 @@
 import path from 'node:path';
 import seedShows from './seed/projected_shows.json';
 import seedLogan from './seed/logan_crosby_shows.json';
+import seedJoDee2027 from './seed/jodee_2027_shows.json';
 import seedUnderoath from './seed/underoath_merch.json';
 import seedRetainers from './seed/retainers_2026.json';
 import seedRefresh from './seed/sheet_refresh_2026_11.json';
@@ -133,6 +134,9 @@ async function ensureManagers(db: Db) {
     // 17 Nov 2026: Logan Crosby's itinerary dates had also landed under Corey Smith (the export has no artist column). Remove exactly those date+venue rows from Corey Smith; his own shows are untouched.
     if ((await db.run(`insert into seed_flags values ('logan_not_corey_2026_11_17') on conflict do nothing returning name`)).rows.length)
       for (const s of seedLogan) await db.run(`delete from projected_shows where artist = 'Corey Smith' and show_date = $1 and left(lower(venue), length($2)) = lower($2)`, [s.show_date, s.venue]);
+    // 19 Nov 2026: Jo Dee Messina's 2027 dates from her touring calendar (C = Confirmed, W = Not confirmed; walkout/buyout notes kept in the venue).
+    if ((await db.run(`insert into seed_flags values ('jodee_2027_2026_11_19') on conflict do nothing returning name`)).rows.length)
+      for (const s of seedJoDee2027) await db.run('insert into projected_shows values ($1,$2,$3,$4,$5,$6,$7,$8,$9) on conflict do nothing', [s.artist, s.show_date, s.venue, s.city, s.state, s.contact, s.fee, s.status, s.source]);
   } catch (e) { console.error('projected_shows setup failed', e); }
 }
 // Inserts lines from a CSV in the data/revenue_lines.csv layout (overwrites an existing tracker row only when update is true), creating the company, artist and client if needed.
