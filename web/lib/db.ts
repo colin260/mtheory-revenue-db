@@ -4,6 +4,7 @@ import path from 'node:path';
 import seedShows from './seed/projected_shows.json';
 import seedLogan from './seed/logan_crosby_shows.json';
 import seedJoDee2027 from './seed/jodee_2027_shows.json';
+import seedJoDeeExtra from './seed/jodee_2026_extra_shows.json';
 import seedUnderoath from './seed/underoath_merch.json';
 import seedRetainers from './seed/retainers_2026.json';
 import seedRefresh from './seed/sheet_refresh_2026_11.json';
@@ -124,6 +125,8 @@ async function ensureManagers(db: Db) {
     await db.run('alter table projected_shows enable row level security');
     // Finance can type a commission for one show on the Touring tab; it replaces fee x usual rate for that show (Colin, Nov 9 2026). Uploads never touch it.
     await db.run('alter table projected_shows add column if not exists commission_override numeric');
+    // A show's own commission rate, when it differs from the artist's usual touring rate (Colin, Nov 19 2026). Uploads never touch it.
+    await db.run('alter table projected_shows add column if not exists rate numeric');
     if (!(await db.run('select 1 from projected_shows limit 1')).rows.length)
       for (const s of seedShows) await db.run('insert into projected_shows values ($1,$2,$3,$4,$5,$6,$7,$8,$9) on conflict do nothing', [s.artist, s.show_date, s.venue, s.city, s.state, s.contact, s.fee, s.status, s.source]);
     // 17 Nov 2026: Logan Crosby added as an artist (no tracker lines yet) with his Sep-Oct 2026 support dates on the Lily Rose tour, from an itinerary export.
@@ -137,6 +140,11 @@ async function ensureManagers(db: Db) {
     // 19 Nov 2026: Jo Dee Messina's 2027 dates from her touring calendar (C = Confirmed, W = Not confirmed; walkout/buyout notes kept in the venue).
     if ((await db.run(`insert into seed_flags values ('jodee_2027_2026_11_19') on conflict do nothing returning name`)).rows.length)
       for (const s of seedJoDee2027) await db.run('insert into projected_shows values ($1,$2,$3,$4,$5,$6,$7,$8,$9) on conflict do nothing', [s.artist, s.show_date, s.venue, s.city, s.state, s.contact, s.fee, s.status, s.source]);
+    // 19 Nov 2026 (Colin): Jo Dee's 2027 shows are 15% except Stagecoach 7.5%; three more shows at 15% (Independence KY, Fresno CA, Waukegan IL).
+    if ((await db.run(`insert into seed_flags values ('jodee_rates_2026_11_19') on conflict do nothing returning name`)).rows.length) {
+      await db.run(`update projected_shows set rate = case when venue = 'Stagecoach' then 0.075 else 0.15 end where artist = 'Jo Dee Messina' and extract(year from show_date) = 2027`);
+      for (const s of seedJoDeeExtra) await db.run('insert into projected_shows (artist, show_date, venue, city, state, contact, fee, status, source, rate) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) on conflict do nothing', [s.artist, s.show_date, s.venue, s.city, s.state, s.contact, s.fee, s.status, s.source, s.rate]);
+    }
   } catch (e) { console.error('projected_shows setup failed', e); }
 }
 // Inserts lines from a CSV in the data/revenue_lines.csv layout (overwrites an existing tracker row only when update is true), creating the company, artist and client if needed.

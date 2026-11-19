@@ -17,7 +17,7 @@ export function ProjectedShows({ proj, money, artist }: { proj: ProjectedSet; mo
         <>
           <h2 style={{ marginTop: 28 }}>Projected shows (not yet paid)</h2>
           <p className="note">
-            From {list([...new Set(proj.shows.map(s => from(s.source)))])}, not yet deposited{money && proj.rate != null ? <> · commission at {pct(proj.rate)}, {proj.setRate ? <>the rate set for {artist} (no touring lines yet)</> : <>the same rate as {artist}’s touring lines</>}</> : null}.
+            From {list([...new Set(proj.shows.map(s => from(s.source)))])}, not yet deposited{money && proj.rate != null ? <> · commission at {pct(proj.rate)}, {proj.setRate ? <>the rate set for {artist} (no touring lines yet)</> : <>the same rate as {artist}’s touring lines</>}{proj.shows.some(s => s.rate != null && s.rate !== proj.rate) ? <>, except shows with their own rate (see the Rate column)</> : null}</> : null}.
             {' '}Shows with no fee yet and expired holds are listed but not counted.
           </p>
           <div className="stats">
@@ -47,7 +47,7 @@ export function ProjectedShows({ proj, money, artist }: { proj: ProjectedSet; mo
                         <td>{day(s.show_date)}</td><td>{s.contact}</td>
                         <td>{s.status === 'Confirmed' ? <b>Confirmed</b> : <span className="muted">{s.status}{s.fee ? '' : ' · no fee yet'}</span>}{s.show_date < today && !dead ? <span className="muted"> · played, awaiting payment</span> : null}</td>
                         <td className="num">{s.fee ? usd(s.fee) : <span className="muted">—</span>}</td>
-                        {money && <td className="num">{dead ? '' : s.custom ? <span className="muted" title="Commission typed in for this show">custom</span> : proj.rate != null && s.fee ? pct(proj.rate) : ''}</td>}
+                        {money && <td className="num">{dead ? '' : s.custom ? <span className="muted" title="Commission typed in for this show">custom</span> : s.rate != null && s.fee ? pct(s.rate) : ''}</td>}
                         {money && <td className="num">{dead ? '' : <CommissionEdit artist={artist} showDate={s.show_date} venue={s.venue} value={s.commission} custom={s.custom} />}</td>}
                       </tr>);
                   }

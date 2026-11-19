@@ -1,0 +1,38 @@
+[
+ {
+  "artist": "Jo Dee Messina",
+  "show_date": "2026-09-11",
+  "venue": "Independence, KY",
+  "city": "Independence",
+  "state": "KY",
+  "contact": null,
+  "fee": 75000,
+  "status": "Confirmed",
+  "source": "Jo Dee show list",
+  "rate": 0.15
+ },
+ {
+  "artist": "Jo Dee Messina",
+  "show_date": "2026-09-19",
+  "venue": "Fresno, CA",
+  "city": "Fresno",
+  "state": "CA",
+  "contact": null,
+  "fee": 85000,
+  "status": "Confirmed",
+  "source": "Jo Dee show list",
+  "rate": 0.15
+ },
+ {
+  "artist": "Jo Dee Messina",
+  "show_date": "2026-10-23",
+  "venue": "Waukegan, IL (walkout up to $81K)",
+  "city": "Waukegan",
+  "state": "IL",
+  "contact": null,
+  "fee": 60000,
+  "status": "Confirmed",
+  "source": "Jo Dee show list",
+  "rate": 0.15
+ }
+]
