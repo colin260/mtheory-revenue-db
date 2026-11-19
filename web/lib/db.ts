@@ -145,6 +145,11 @@ async function ensureManagers(db: Db) {
       await db.run(`update projected_shows set rate = case when venue = 'Stagecoach' then 0.075 else 0.15 end where artist = 'Jo Dee Messina' and extract(year from show_date) = 2027`);
       for (const s of seedJoDeeExtra) await db.run('insert into projected_shows (artist, show_date, venue, city, state, contact, fee, status, source, rate) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) on conflict do nothing', [s.artist, s.show_date, s.venue, s.city, s.state, s.contact, s.fee, s.status, s.source, s.rate]);
     }
+    // 19 Nov 2026 (Colin): Jo Dee's shows were already in the table from an earlier entry, so they showed twice. Remove the earlier copy of any Jo Dee show that
+    // has a same-date copy from the two lists above (sources '2027 touring calendar' / 'Jo Dee show list'); those keep the rates Colin set.
+    if ((await db.run(`insert into seed_flags values ('jodee_dupes_2026_11_19') on conflict do nothing returning name`)).rows.length)
+      await db.run(`delete from projected_shows o where o.artist = 'Jo Dee Messina' and coalesce(o.source, '') not in ('2027 touring calendar', 'Jo Dee show list')
+        and exists (select 1 from projected_shows n where n.artist = o.artist and n.show_date = o.show_date and n.source in ('2027 touring calendar', 'Jo Dee show list'))`);
   } catch (e) { console.error('projected_shows setup failed', e); }
 }
 // Inserts lines from a CSV in the data/revenue_lines.csv layout (overwrites an existing tracker row only when update is true), creating the company, artist and client if needed.
